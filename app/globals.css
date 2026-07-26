@@ -126,6 +126,49 @@ body {
   color: #1a1a1a;
 }
 
+.card-acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.renovar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.renovar-btn {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.renovar-btn:disabled {
+  opacity: 0.6;
+}
+
+.renovar-ok {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--green);
+  white-space: nowrap;
+}
+
+.renovar-erro {
+  font-size: 11px;
+  color: var(--red);
+  max-width: 140px;
+  text-align: right;
+  margin-top: 4px;
+}
+
 .empty-state {
   text-align: center;
   padding: 60px 20px;

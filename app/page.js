@@ -4,6 +4,7 @@ import { COOKIE_NAME, tokenEsperado } from '../lib/auth';
 import { redis, SNAPSHOT_KEY } from '../lib/redis';
 import LoginForm from './LoginForm';
 import LogoutButton from './LogoutButton';
+import RenovarButton from './RenovarButton';
 
 // Nunca faz cache dessa página — sempre busca o dado mais recente do Redis.
 export const dynamic = 'force-dynamic';
@@ -28,7 +29,10 @@ function Card({ item, tipo }) {
         <div className="nome">{item.cliente}</div>
         <div className="dias">{texto}</div>
       </div>
-      <span className={`badge ${tipo}`}>{badge}</span>
+      <div className="card-acoes">
+        <span className={`badge ${tipo}`}>{badge}</span>
+        <RenovarButton conta={item.conta} cliente={item.cliente} />
+      </div>
     </div>
   );
 }
