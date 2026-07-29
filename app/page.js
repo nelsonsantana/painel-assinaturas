@@ -15,12 +15,22 @@ function estaAutenticado() {
   return valor === tokenEsperado();
 }
 
+// Calcula a partir de item.validade (data+hora completa) em vez do
+// diasRestantes do snapshot, que fica parado desde a última rodada do
+// robô — assim "0 dia(s)" perto da virada não fica ambíguo entre
+// "venceu" e "vence daqui a pouco".
+function formatarTempoRestante(ms) {
+  const horasTotais = Math.floor(Math.abs(ms) / (1000 * 60 * 60));
+  if (horasTotais < 24) return `${horasTotais}h`;
+  return `${Math.floor(horasTotais / 24)} dia(s)`;
+}
+
 function Card({ item, tipo }) {
-  const dias = item.diasRestantes;
+  const msRestante = new Date(item.validade) - new Date();
   const texto =
     tipo === 'vencido'
-      ? `Venceu há ${Math.abs(dias)} dia(s)`
-      : `${dias} dia(s) restante(s)`;
+      ? `Venceu há ${formatarTempoRestante(msRestante)}`
+      : `${formatarTempoRestante(msRestante)} restante(s)`;
   const badge = { vencido: 'VENCIDO', urgente: 'URGENTE', atencao: 'ATENÇÃO' }[tipo];
 
   return (
