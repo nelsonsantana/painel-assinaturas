@@ -5,6 +5,7 @@ import { redis, SNAPSHOT_KEY } from '../lib/redis';
 import LoginForm from './LoginForm';
 import LogoutButton from './LogoutButton';
 import RenovarButton from './RenovarButton';
+import VerificarButton from './VerificarButton';
 
 // Nunca faz cache dessa página — sempre busca o dado mais recente do Redis.
 export const dynamic = 'force-dynamic';
@@ -76,7 +77,10 @@ export default async function Page() {
           <h1>📋 Assinaturas</h1>
           {dataFormatada && <div className="data">Atualizado em {dataFormatada}</div>}
         </div>
-        <LogoutButton />
+        <div className="header-acoes">
+          <VerificarButton />
+          <LogoutButton />
+        </div>
       </div>
 
       {total === 0 ? (
