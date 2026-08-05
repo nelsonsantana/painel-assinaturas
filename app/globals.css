@@ -52,6 +52,8 @@ body {
 .header-acoes {
   display: flex;
   align-items: flex-start;
+  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -91,6 +93,43 @@ body {
   max-width: 160px;
   text-align: right;
   margin-top: 4px;
+}
+
+.sessao-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.sessao-btn {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--green);
+  background: transparent;
+  color: var(--green);
+  white-space: nowrap;
+}
+
+.sessao-btn:disabled {
+  opacity: 0.6;
+}
+
+.sessao-status {
+  font-size: 11px;
+  max-width: 160px;
+  text-align: right;
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.sessao-status-erro {
+  color: var(--red);
+}
+
+.sessao-status-concluido {
+  color: var(--green);
 }
 
 .section-title {

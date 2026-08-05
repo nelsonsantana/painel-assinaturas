@@ -6,6 +6,7 @@ import LoginForm from './LoginForm';
 import LogoutButton from './LogoutButton';
 import RenovarButton from './RenovarButton';
 import VerificarButton from './VerificarButton';
+import SessaoRemotaButton from './SessaoRemotaButton';
 
 // Nunca faz cache dessa página — sempre busca o dado mais recente do Redis.
 export const dynamic = 'force-dynamic';
@@ -79,6 +80,7 @@ export default async function Page() {
         </div>
         <div className="header-acoes">
           <VerificarButton />
+          <SessaoRemotaButton />
           <LogoutButton />
         </div>
       </div>
