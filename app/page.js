@@ -1,7 +1,7 @@
 // app/page.js
 import { cookies } from 'next/headers';
 import { COOKIE_NAME, tokenEsperado } from '../lib/auth';
-import { redis, SNAPSHOT_KEY } from '../lib/redis';
+import { redis, SNAPSHOT_KEY, SESSAO_RENOVADA_KEY } from '../lib/redis';
 import LoginForm from './LoginForm';
 import LogoutButton from './LogoutButton';
 import RenovarButton from './RenovarButton';
@@ -54,22 +54,22 @@ export default async function Page() {
     return <LoginForm />;
   }
 
-  const snapshot = await redis.get(SNAPSHOT_KEY);
+  const [snapshot, sessaoRenovadaEm] = await Promise.all([redis.get(SNAPSHOT_KEY), redis.get(SESSAO_RENOVADA_KEY)]);
 
   const vencidos = snapshot?.vencidos || [];
   const urgente = snapshot?.urgente || [];
   const atencao = snapshot?.atencao || [];
   const total = vencidos.length + urgente.length + atencao.length;
 
-  const dataFormatada = snapshot?.geradoEm
-    ? new Date(snapshot.geradoEm).toLocaleString('pt-BR', {
-        timeZone: 'America/Sao_Paulo',
-        day: '2-digit',
-        month: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-      })
-    : null;
+  const opcoesData = {
+    timeZone: 'America/Sao_Paulo',
+    day: '2-digit',
+    month: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  };
+  const dataFormatada = snapshot?.geradoEm ? new Date(snapshot.geradoEm).toLocaleString('pt-BR', opcoesData) : null;
+  const sessaoFormatada = sessaoRenovadaEm ? new Date(sessaoRenovadaEm).toLocaleString('pt-BR', opcoesData) : null;
 
   return (
     <div className="container">
@@ -77,6 +77,7 @@ export default async function Page() {
         <div>
           <h1>📋 Assinaturas</h1>
           {dataFormatada && <div className="data">Atualizado em {dataFormatada}</div>}
+          {sessaoFormatada && <div className="data">Sessão renovada em {sessaoFormatada}</div>}
         </div>
         <div className="header-acoes">
           <VerificarButton />
